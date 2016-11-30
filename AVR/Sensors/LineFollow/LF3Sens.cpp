@@ -19,15 +19,19 @@ void Sens3::setStatus(uint8_t sensors) {
 	switch(sensors) {
 	case 0:
 		this->lineStatus = LOST;
+		if(lineOffset == LF_LEFT * 2 / 3) 
+			lineOffset = LF_LEFT;
+		else if(lineOffset == LF_RIGHT * 2 / 3) 
+			lineOffset = LF_RIGHT;
 	break;
 
 	case 0b100:
-		this->lineOffset = LF_LEFT;
+		this->lineOffset = LF_LEFT * 2 / 3;
 	break;
 
 	case 0b110:
 		this->lineStatus = OK;
-		this->lineOffset = LF_LEFT / 2;
+		this->lineOffset = LF_LEFT / 3;
 	break;
 
 	case 0b010:
@@ -37,11 +41,11 @@ void Sens3::setStatus(uint8_t sensors) {
 
 	case 0b011:
 		this->lineStatus = OK;
-		this->lineOffset = LF_RIGHT / 2;
+		this->lineOffset = LF_RIGHT / 3;
 	break;
 
 	case 0b001:
-		this->lineOffset = LF_RIGHT;
+		this->lineOffset = LF_RIGHT * 2 / 3;
 	break;
 
 	case 0b111:
